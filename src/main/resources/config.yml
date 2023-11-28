@@ -1,0 +1,4 @@
+baseSpawnRate: 100 # 0 to 100
+minMSPT: 30 # MSPT for maximum spawn rate
+maxMSPT: 100 # MSPT for zero spawn rate
+verbose-logging: false

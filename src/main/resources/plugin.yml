@@ -1,0 +1,17 @@
+name: ThrottleGoldFarms
+version: '${version}'
+main: gg.corn.throttlegoldfarms.ThrottleGoldFarms
+api-version: 1.13
+
+commands:
+  throttlegoldfarms:
+    description: Manage the throttle portal spawns plugin
+    usage: /<command> [reload|getrate]
+    aliases: [tgf]
+    permission: throttlegoldfarms.admin
+    permission-message: You do not have permission to execute this command.
+
+permissions:
+  throttlegoldfarms.reload:
+    description: Allows reloading the throttle portal spawns configuration
+    default: op
