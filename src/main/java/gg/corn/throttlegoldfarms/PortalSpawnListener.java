@@ -21,9 +21,6 @@ public class PortalSpawnListener implements Listener {
     private long lastDecreaseTime = 0; // Timestamp of the last decrease
     private long lastIncreaseTime = 0; // Timestamp of the last increase
 
-    public static double lastAdjustedSpawnRate = 100; // Stores the last adjusted spawn rate
-
-
 
 
     @EventHandler
@@ -66,6 +63,7 @@ public class PortalSpawnListener implements Listener {
         double minMSPT = plugin.getConfig().getDouble("minMSPT");
         double maxMSPT = plugin.getConfig().getDouble("maxMSPT");
         double baseSpawnRate = plugin.getConfig().getDouble("baseSpawnRate");
+        double lastAdjustedSpawnRate = plugin.getConfig().getDouble("baseSpawnRate");
         double newSpawnRate;
 
         if (currentMSPT <= minMSPT) {
