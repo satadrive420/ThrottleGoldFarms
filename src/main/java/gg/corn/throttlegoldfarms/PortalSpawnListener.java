@@ -21,7 +21,7 @@ public class PortalSpawnListener implements Listener {
     private long lastDecreaseTime = 0; // Timestamp of the last decrease
     private long lastIncreaseTime = 0; // Timestamp of the last increase
 
-    public static double lastAdjustedSpawnRate; // Stores the last adjusted spawn rate
+    public static double lastAdjustedSpawnRate = 100; // Stores the last adjusted spawn rate
 
 
 
