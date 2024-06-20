@@ -12,7 +12,7 @@ import static org.bukkit.Bukkit.getServer;
 
 public class PortalSpawnListener implements Listener {
 
-    private final ThrottleGoldFarms plugin;
+    private static ThrottleGoldFarms plugin;
 
     public PortalSpawnListener(ThrottleGoldFarms plugin) {
         this.plugin = plugin;
@@ -20,8 +20,7 @@ public class PortalSpawnListener implements Listener {
 
     private long lastDecreaseTime = 0; // Timestamp of the last decrease
     private long lastIncreaseTime = 0; // Timestamp of the last increase
-
-
+    public static double lastAdjustedSpawnRate = plugin.getConfig().getDouble("baseSpawnRate");
 
     @EventHandler
     public void onCreatureSpawn(CreatureSpawnEvent event) {
@@ -63,7 +62,6 @@ public class PortalSpawnListener implements Listener {
         double minMSPT = plugin.getConfig().getDouble("minMSPT");
         double maxMSPT = plugin.getConfig().getDouble("maxMSPT");
         double baseSpawnRate = plugin.getConfig().getDouble("baseSpawnRate");
-        double lastAdjustedSpawnRate = plugin.getConfig().getDouble("baseSpawnRate");
         double newSpawnRate;
 
         if (currentMSPT <= minMSPT) {
