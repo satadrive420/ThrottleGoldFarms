@@ -14,13 +14,16 @@ public class PortalSpawnListener implements Listener {
 
     private static ThrottleGoldFarms plugin;
 
+    public static double lastAdjustedSpawnRate;
+
     public PortalSpawnListener(ThrottleGoldFarms plugin) {
         this.plugin = plugin;
+        lastAdjustedSpawnRate = plugin.getConfig().getDouble("baseSpawnRate");
     }
 
     private long lastDecreaseTime = 0; // Timestamp of the last decrease
     private long lastIncreaseTime = 0; // Timestamp of the last increase
-    public static double lastAdjustedSpawnRate = plugin.getConfig().getDouble("baseSpawnRate");
+
 
     @EventHandler
     public void onCreatureSpawn(CreatureSpawnEvent event) {
@@ -62,41 +65,39 @@ public class PortalSpawnListener implements Listener {
         double minMSPT = plugin.getConfig().getDouble("minMSPT");
         double maxMSPT = plugin.getConfig().getDouble("maxMSPT");
         double baseSpawnRate = plugin.getConfig().getDouble("baseSpawnRate");
+        double minimumSpawnRate = 1.0; // Set minimum spawn rate to 1%
         double newSpawnRate;
 
         if (currentMSPT <= minMSPT) {
             newSpawnRate = baseSpawnRate;
         } else if (currentMSPT >= maxMSPT) {
-            newSpawnRate = 0;
+            newSpawnRate = minimumSpawnRate; // Use minimum spawn rate instead of 0
         } else {
             newSpawnRate = baseSpawnRate * (1 - (currentMSPT - minMSPT) / (maxMSPT - minMSPT));
+            newSpawnRate = Math.max(newSpawnRate, minimumSpawnRate); // Ensure it doesn't fall below the minimum
         }
 
         // Check if the delay period has passed
-        // Check if the spawn rate is being decreased
         if (newSpawnRate < lastAdjustedSpawnRate) {
             if ((System.currentTimeMillis() - lastDecreaseTime) < DECREASE_DELAY_TICKS * 50) {
                 return lastAdjustedSpawnRate;
             }
             lastDecreaseTime = System.currentTimeMillis();
-        }
-        // Check if the spawn rate is being increased
-        else if (newSpawnRate > lastAdjustedSpawnRate) {
+        } else if (newSpawnRate > lastAdjustedSpawnRate) {
             if ((System.currentTimeMillis() - lastIncreaseTime) < INCREASE_DELAY_TICKS * 50) {
                 return lastAdjustedSpawnRate;
             }
             lastIncreaseTime = System.currentTimeMillis();
         }
 
-
-        // Log the adjustment
-        if (newSpawnRate != baseSpawnRate){
+        if (newSpawnRate != lastAdjustedSpawnRate) {
             Bukkit.getLogger().info("[TGF] Adjusting spawn rate to " + newSpawnRate + "% due to current MSPT: " + currentMSPT);
             lastAdjustedSpawnRate = newSpawnRate; // Update the last adjusted spawn rate
         }
 
         return newSpawnRate;
     }
+
 
 
 }
