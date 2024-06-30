@@ -10,8 +10,15 @@ commands:
     aliases: [tgf]
     permission: throttlegoldfarms.admin
     permission-message: You do not have permission to execute this command.
+  resetspawnrate:
+    description: Resets the spawn rate to 100%.
+    usage: /resetspawnrate
+    permission: throttlegoldfarms.resetspawnrate
 
 permissions:
   throttlegoldfarms.reload:
     description: Allows reloading the throttle portal spawns configuration
+    default: op
+  throttlegoldfarms.resetspawnrate:
+    description: Allows the player to reset the spawn rate.
     default: op
