@@ -3,19 +3,13 @@ package gg.corn.throttlegoldfarms;
 
 
 import org.bukkit.Bukkit;
-import org.bukkit.Material;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.CreatureSpawnEvent;
-import org.bukkit.event.entity.EntityDeathEvent;
 import org.bukkit.entity.PigZombie;
-import org.bukkit.inventory.ItemStack;
 import org.bukkit.metadata.FixedMetadataValue;
 
-import java.util.Iterator;
-
 import static org.bukkit.Bukkit.getServer;
-
 
 public class PortalSpawnListener implements Listener {
 
@@ -71,7 +65,6 @@ public class PortalSpawnListener implements Listener {
         double baseSpawnRate = plugin.getConfig().getDouble("baseSpawnRate");
         double newSpawnRate = 100;
 
-
         if (currentMSPT <= minMSPT) {
             newSpawnRate = baseSpawnRate;
         } else if (currentMSPT >= maxMSPT) {
@@ -103,8 +96,11 @@ public class PortalSpawnListener implements Listener {
             lastAdjustedSpawnRate = newSpawnRate; // Update the last adjusted spawn rate
         }
 
+        // If the server is running very efficiently and the spawn rate is low, reset it.
         if (currentMSPT <= 20 && newSpawnRate < 100) {
             resetSpawnRate();
+            newSpawnRate = 100;  // Ensure we return the reset spawn rate
+            lastAdjustedSpawnRate = 100; // Keep our static value consistent
         }
 
         return newSpawnRate;
