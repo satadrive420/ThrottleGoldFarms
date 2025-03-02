@@ -3,10 +3,17 @@ package gg.corn.throttlegoldfarms;
 
 
 import org.bukkit.Bukkit;
+import org.bukkit.Material;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.CreatureSpawnEvent;
+import org.bukkit.event.entity.EntityDeathEvent;
 import org.bukkit.entity.PigZombie;
+import org.bukkit.inventory.ItemStack;
+import org.bukkit.metadata.FixedMetadataValue;
+
+import java.util.Iterator;
+
 import static org.bukkit.Bukkit.getServer;
 
 
@@ -45,8 +52,8 @@ public class PortalSpawnListener implements Listener {
                     }
                     event.setCancelled(true);
                 } else {
-                    // Set the HandDropChance to 0 if the entity was not cancelled
-                    pigZombie.getEquipment().setItemInMainHandDropChance(0.0f);
+                    // Mark the entity so we know it came from a Nether Portal
+                    pigZombie.setMetadata("spawnedFromNetherPortal", new FixedMetadataValue(plugin, true));
                 }
             }
         }
@@ -106,6 +113,5 @@ public class PortalSpawnListener implements Listener {
         lastAdjustedSpawnRate = 100;
         Bukkit.getLogger().info("[TGF] Spawn rate has been reset to 100%");
     }
-
 
 }
