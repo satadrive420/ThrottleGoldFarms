@@ -45,9 +45,6 @@ public class PortalSpawnListener implements Listener {
                         Bukkit.getLogger().info("[TGF] Successfully cancelled a portal spawn!");
                     }
                     event.setCancelled(true);
-                } else {
-                    // Mark the entity so we know it came from a Nether Portal
-                    pigZombie.setMetadata("spawnedFromNetherPortal", new FixedMetadataValue(plugin, true));
                 }
             }
         }

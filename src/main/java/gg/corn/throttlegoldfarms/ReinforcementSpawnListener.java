@@ -18,7 +18,7 @@ public class ReinforcementSpawnListener implements Listener {
     @EventHandler
     public void onPigZombieReinforcementSpawn(CreatureSpawnEvent event) {
         // Check if the config option is enabled
-        if (!plugin.getConfig().getBoolean("prevent-overworld-reinforcements", true)) {
+        if (!plugin.getConfig().getBoolean("disable-pigmen-reinforcements", true)) {
             return;
         }
 

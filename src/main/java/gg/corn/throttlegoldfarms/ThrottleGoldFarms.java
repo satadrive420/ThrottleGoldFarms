@@ -8,7 +8,7 @@ public final class ThrottleGoldFarms extends JavaPlugin {
     public void onEnable() {
         saveDefaultConfig();
         getServer().getPluginManager().registerEvents(new PortalSpawnListener(this), this);
-        getServer().getPluginManager().registerEvents(new SwordDropRemover(), this);
+        getServer().getPluginManager().registerEvents(new SwordDropRemover(this), this);
         getServer().getPluginManager().registerEvents(new ReinforcementSpawnListener(this), this);
         this.getCommand("throttlegoldfarms").setExecutor(new CommandHandler(this));
         this.getCommand("resetspawnrate").setExecutor(new ResetSpawnRateCommand(this));

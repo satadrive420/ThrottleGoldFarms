@@ -4,3 +4,7 @@ maxMSPT: 60 # MSPT for zero spawn rate
 verbose-logging: false
 decrease-delay: 600
 increase-delay: 6000
+
+# Whether to disable the reinforcement mechanic for zombified piglins spawned from nether portals
+# I guess this was intended behavior all along but the 11-year-old bug was fixed in 1.21.2.
+disable-pigmen-reinforcements: true
